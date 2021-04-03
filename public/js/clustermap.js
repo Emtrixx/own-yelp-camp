@@ -34,11 +34,11 @@ paint: {
 'circle-color': [
 'step',
 ['get', 'point_count'],
-'#03A9F4',
+'#4FC3F7',
 5,
-'#009688',
+'#039BE5',
 10,
-'#4CAF50'
+'#01579B'
 ],
 'circle-radius': [
 'step',
@@ -103,14 +103,7 @@ zoom: zoom
 // description HTML from its properties.
 map.on('click', 'unclustered-point', function (e) {
 var coordinates = e.features[0].geometry.coordinates.slice();
-var mag = e.features[0].properties.mag;
-var tsunami;
- 
-if (e.features[0].properties.tsunami === 1) {
-tsunami = 'yes';
-} else {
-tsunami = 'no';
-}
+const popUpText = e.features[0].properties.popUpText
  
 // Ensure that if the map is zoomed out such that
 // multiple copies of the feature are visible, the
@@ -118,12 +111,10 @@ tsunami = 'no';
 while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
 coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
 }
- 
+
 new mapboxgl.Popup()
 .setLngLat(coordinates)
-.setHTML(
-'magnitude: ' + mag + '<br>Was there a tsunami?: ' + tsunami
-)
+.setHTML( popUpText )
 .addTo(map);
 });
  
