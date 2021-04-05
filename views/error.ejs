@@ -3,5 +3,7 @@
     <h4 class="alert-heading">ERROR</h4>
     <p><%= message %> </p>
     <hr>
+    <% if (process.env.NODE_ENV !== "production") { %> 
     <p class="mb-0"><%= stack %> </p>
+    <% } %> 
   </div>
